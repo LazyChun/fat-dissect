@@ -1,0 +1,25 @@
+{
+  "id": "f8af04a7-d7e0-4153-92ad-6bed90db61bf",
+  "name": "fat-dissect",
+  "version": "0.1.0",
+  "description": "A FatNotes bespoke plugin.",
+  "entry": "remoteEntry.js",
+  "mfName": "plugin_f8af04a7_d7e0_4153_92ad_6bed90db61bf",
+  "container": "plugin_f8af04a7_d7e0_4153_92ad_6bed90db61bf",
+  "exposed": "./plugin",
+  "contributions": {
+    "activityBar": true,
+    "primarySidebar": true,
+    "panel": false,
+    "footer": false,
+    "routes": true,
+    "widgetTypes": false
+  },
+  "permissions": [],
+  "backend": {
+    "enabled": true,
+    "entry": "backend/main.py",
+    "requirements": "backend/requirements.txt",
+    "depsStrategy": "vendor"
+  }
+}
