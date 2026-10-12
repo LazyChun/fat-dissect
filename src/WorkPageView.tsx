@@ -1,13 +1,15 @@
 /*
  * WorkPageView：工作台整页（右侧工作区）—— 按当前路由渲染对应视图。
  *
- * 当前为初始化骨架：仅渲染欢迎占位页，
- * 后续在此按路由分发各解剖工具的实际界面。
+ * 已接入的解剖工具：
+ *   - /dissect/home → 欢迎页
+ *   - /dissect/tank → 坦克 3D 解构（three.js 模型 + 分解动画 + 运行原理演示）
  */
 import React, { useEffect, useReducer } from "react";
 import { Card, Descriptions, Empty } from "antd";
 import type { FatNotesPluginSDK } from "fat-notes-sdk";
-import { HOME_PATH, isDissectRoute } from "./routes";
+import TankView from "./tools/TankView";
+import { HOME_PATH, TANK_PATH, isDissectRoute } from "./routes";
 
 interface Props {
   sdk: FatNotesPluginSDK;
@@ -30,6 +32,10 @@ const WorkPageView: React.FC<Props> = ({ sdk }) => {
         <Empty description={`当前路由：${path || "(空)"}`} />
       </div>
     );
+  }
+
+  if (path === TANK_PATH) {
+    return <TankView />;
   }
 
   return (

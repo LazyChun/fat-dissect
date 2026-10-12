@@ -16,7 +16,7 @@ import React from "react";
 import type { Disposable, FatNotesPluginSDK } from "fat-notes-sdk";
 import MenuView from "./MenuView";
 import WorkPageView from "./WorkPageView";
-import { HOME_PATH } from "./routes";
+import { HOME_PATH, TANK_PATH } from "./routes";
 
 const disposables: Disposable[] = [];
 
@@ -68,6 +68,13 @@ export async function activate(sdk: FatNotesPluginSDK): Promise<void> {
     sdk.contributions.registerRoutePage({
       path: HOME_PATH,
       title: "欢迎",
+      render: () => null,
+    }),
+  );
+  safeRegister(`route:${TANK_PATH}`, () =>
+    sdk.contributions.registerRoutePage({
+      path: TANK_PATH,
+      title: "坦克 3D 解构",
       render: () => null,
     }),
   );

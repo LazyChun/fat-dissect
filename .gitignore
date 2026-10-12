@@ -6,3 +6,4 @@ dist/
 __pycache__/
 package-lock.json
 install.zip
+dist-preview/

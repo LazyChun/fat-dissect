@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { HOME_PATH, ROUTE_PREFIX, isDissectRoute } from "../src/routes";
+import {
+  HOME_PATH,
+  ROUTE_PREFIX,
+  TANK_PATH,
+  isDissectRoute,
+} from "../src/routes";
 
 describe("fat-dissect routes", () => {
   it("ROUTE_PREFIX 挂在 /dissect 命名空间下", () => {
@@ -9,6 +14,11 @@ describe("fat-dissect routes", () => {
   it("HOME_PATH 位于前缀之下", () => {
     expect(HOME_PATH).toBe(`${ROUTE_PREFIX}/home`);
     expect(HOME_PATH.startsWith(ROUTE_PREFIX)).toBe(true);
+  });
+
+  it("TANK_PATH 位于前缀之下", () => {
+    expect(TANK_PATH).toBe(`${ROUTE_PREFIX}/tank`);
+    expect(TANK_PATH.startsWith(ROUTE_PREFIX)).toBe(true);
   });
 
   it("isDissectRoute 识别本插件路由", () => {
