@@ -9,6 +9,7 @@
  * 当前为初始化骨架，贡献点：
  *   - 活动栏 / 主侧边栏 / 工作台整页
  *   - 路由页注册（供宿主面包屑 / 全局导航识别）
+ *   - 全局搜索注册（插件页面注册为可搜索项，宿主全局搜索可直达）
  *   - 命令：fat-dissect.ping
  *   - 设置页
  */
@@ -28,7 +29,10 @@ const ACTIVITY_ID = "fat-dissect.main";
  * 某个宿主版本缺少某个 SDK 方法时，不能让它中断整个 activate()，
  * 否则后续贡献点与首屏 UI 都会一起消失（表现为"插件加载后啥都没有"）。
  */
-function safeRegister(label: string, fn: () => Disposable | undefined | null): void {
+function safeRegister(
+  label: string,
+  fn: () => Disposable | undefined | null,
+): void {
   try {
     const d = fn();
     if (d) disposables.push(d);
@@ -52,7 +56,9 @@ export async function activate(sdk: FatNotesPluginSDK): Promise<void> {
 
   // 2. 主侧边栏（次面板）：展示解剖项目菜单
   safeRegister("primarySidebar", () =>
-    sdk.contributions.registerPrimarySidebar(() => React.createElement(MenuView, { sdk })),
+    sdk.contributions.registerPrimarySidebar(() =>
+      React.createElement(MenuView, { sdk }),
+    ),
   );
 
   // 3. 工作台整页（右侧工作区）：id 与活动栏项一致，宿主才会在右侧渲染它
@@ -79,6 +85,34 @@ export async function activate(sdk: FatNotesPluginSDK): Promise<void> {
     }),
   );
 
+  // 4.5 全局搜索注册：插件页面注册为搜索项（宿主全局搜索可直达）
+  safeRegister("searchProvider", () =>
+    sdk.contributions.registerSearchProvider({
+      id: "fat-dissect.search",
+      name: "fat-dissect 解剖",
+      items: [
+        {
+          id: "fat-dissect.home",
+          title: "解剖 fat-dissect",
+          desc: "「解剖一切」插件首页",
+          keywords: ["dissect", "home", "解剖", "欢迎"],
+          tag: "解剖",
+          activityId: ACTIVITY_ID,
+          onSelect: () => sdk.router.navigate(HOME_PATH),
+        },
+        {
+          id: "fat-dissect.tank",
+          title: "坦克 3D 解构",
+          desc: "3D 视角拆解坦克结构",
+          keywords: ["dissect", "tank", "坦克", "3D", "解构"],
+          tag: "解剖",
+          activityId: ACTIVITY_ID,
+          onSelect: () => sdk.router.navigate(TANK_PATH),
+        },
+      ],
+    }),
+  );
+
   // 5. 命令：ping
   safeRegister("command:ping", () =>
     sdk.commands.register("fat-dissect.ping", async () => {
@@ -96,7 +130,11 @@ export async function activate(sdk: FatNotesPluginSDK): Promise<void> {
         React.createElement(
           "div",
           { style: { padding: 20, maxWidth: 560 } },
-          React.createElement("h3", { style: { marginTop: 0 } }, "fat-dissect 解剖"),
+          React.createElement(
+            "h3",
+            { style: { marginTop: 0 } },
+            "fat-dissect 解剖",
+          ),
           React.createElement(
             "p",
             null,
