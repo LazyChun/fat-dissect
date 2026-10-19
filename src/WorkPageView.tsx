@@ -4,12 +4,14 @@
  * 已接入的解剖工具：
  *   - /dissect/home → 欢迎页
  *   - /dissect/tank → 坦克 3D 解构（three.js 模型 + 分解动画 + 运行原理演示）
+ *   - /dissect/palace → 故宫太和殿 3D 解构（three.js 模型 + 分解动画 + 建筑结构解析）
  */
 import React, { useEffect, useReducer } from "react";
 import { Card, Descriptions, Empty } from "antd";
 import type { FatNotesPluginSDK } from "fat-notes-sdk";
 import TankView from "./tools/TankView";
-import { HOME_PATH, TANK_PATH, isDissectRoute } from "./routes";
+import PalaceView from "./tools/PalaceView";
+import { HOME_PATH, TANK_PATH, PALACE_PATH, isDissectRoute } from "./routes";
 
 interface Props {
   sdk: FatNotesPluginSDK;
@@ -36,6 +38,10 @@ const WorkPageView: React.FC<Props> = ({ sdk }) => {
 
   if (path === TANK_PATH) {
     return <TankView />;
+  }
+
+  if (path === PALACE_PATH) {
+    return <PalaceView />;
   }
 
   return (

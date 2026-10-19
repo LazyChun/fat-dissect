@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   HOME_PATH,
+  PALACE_PATH,
   ROUTE_PREFIX,
   TANK_PATH,
   isDissectRoute,
@@ -19,6 +20,11 @@ describe("fat-dissect routes", () => {
   it("TANK_PATH 位于前缀之下", () => {
     expect(TANK_PATH).toBe(`${ROUTE_PREFIX}/tank`);
     expect(TANK_PATH.startsWith(ROUTE_PREFIX)).toBe(true);
+  });
+
+  it("PALACE_PATH 位于前缀之下", () => {
+    expect(PALACE_PATH).toBe(`${ROUTE_PREFIX}/palace`);
+    expect(PALACE_PATH.startsWith(ROUTE_PREFIX)).toBe(true);
   });
 
   it("isDissectRoute 识别本插件路由", () => {

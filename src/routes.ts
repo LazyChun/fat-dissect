@@ -11,6 +11,9 @@ export const HOME_PATH = `${ROUTE_PREFIX}/home`;
 /** 坦克 3D 解构路由 */
 export const TANK_PATH = `${ROUTE_PREFIX}/tank`;
 
+/** 故宫太和殿 3D 解构路由 */
+export const PALACE_PATH = `${ROUTE_PREFIX}/palace`;
+
 /** 判断某个路径是否属于本插件 */
 export function isDissectRoute(path: string): boolean {
   return path === ROUTE_PREFIX || path.startsWith(`${ROUTE_PREFIX}/`);

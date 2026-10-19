@@ -17,7 +17,7 @@ import React from "react";
 import type { Disposable, FatNotesPluginSDK } from "fat-notes-sdk";
 import MenuView from "./MenuView";
 import WorkPageView from "./WorkPageView";
-import { HOME_PATH, TANK_PATH } from "./routes";
+import { HOME_PATH, TANK_PATH, PALACE_PATH } from "./routes";
 
 const disposables: Disposable[] = [];
 
@@ -84,6 +84,13 @@ export async function activate(sdk: FatNotesPluginSDK): Promise<void> {
       render: () => null,
     }),
   );
+  safeRegister(`route:${PALACE_PATH}`, () =>
+    sdk.contributions.registerRoutePage({
+      path: PALACE_PATH,
+      title: "故宫太和殿 3D 解构",
+      render: () => null,
+    }),
+  );
 
   // 4.5 全局搜索注册：插件页面注册为搜索项（宿主全局搜索可直达）
   safeRegister("searchProvider", () =>
@@ -108,6 +115,15 @@ export async function activate(sdk: FatNotesPluginSDK): Promise<void> {
           tag: "解剖",
           activityId: ACTIVITY_ID,
           onSelect: () => sdk.router.navigate(TANK_PATH),
+        },
+        {
+          id: "fat-dissect.palace",
+          title: "故宫太和殿 3D 解构",
+          desc: "3D 视角拆解太和殿建筑结构",
+          keywords: ["dissect", "palace", "gugong", "故宫", "太和殿", "3D", "解构"],
+          tag: "解剖",
+          activityId: ACTIVITY_ID,
+          onSelect: () => sdk.router.navigate(PALACE_PATH),
         },
       ],
     }),

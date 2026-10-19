@@ -7,7 +7,7 @@
 import React, { useEffect, useReducer } from "react";
 import { Menu } from "antd";
 import type { FatNotesPluginSDK } from "fat-notes-sdk";
-import { HOME_PATH, TANK_PATH } from "./routes";
+import { HOME_PATH, TANK_PATH, PALACE_PATH } from "./routes";
 
 interface Props {
   sdk: FatNotesPluginSDK;
@@ -36,6 +36,10 @@ const MenuView: React.FC<Props> = ({ sdk }) => {
         {
           key: TANK_PATH,
           label: "坦克 3D 解构",
+        },
+        {
+          key: PALACE_PATH,
+          label: "故宫太和殿 3D 解构",
         },
       ]}
       onClick={({ key }) => sdk.router.navigate(key)}
